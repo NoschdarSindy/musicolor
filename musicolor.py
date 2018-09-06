@@ -40,7 +40,7 @@ def toNote(color):
 def toOct(V):
 	return str(V // 37 +1)
 	
-#Define getColor() as getting the median color of an image
+#Gets the median color of an image
 def getMedianColor(img):
 	return tuple(ImageStat.Stat(img).median)
 	
