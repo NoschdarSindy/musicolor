@@ -7,41 +7,41 @@ from pysynth_b import *
 supportedExts = (".bmp", ".dib ", ".dcx", ".eps ", ".pso", ".gif", ".im", ".jpg ", ".jpe ", ".jpeg", ".pcd", ".pcx", ".pdf", ".png", ".pbm ", ".pgm ", ".ppm", ".psd", ".tif ", ".tiff", ".xbm", ".xpm")
 #YIQ formatted colours and their tonal equivalents
 yiqToNote = (
- 	((25, 124, 109), "f"),
-    ((35, 135, 112), "f#"),
-    ((54, 153, 119), "g"),
+	((25, 124, 109), "f"),
+	((35, 135, 112), "f#"),
+	((54, 153, 119), "g"),
 	((71, 171, 125), "g#"),
-    ((134, 162, 101), "a"),
-    ((215, 144, 65), "a#"),
-    ((195, 111, 49), "b"),
-    ((162, 77, 38), "c"),
-    ((176, 28, 70), "c#"),
-    ((102, 42, 107), "d"),
-    ((31, 60, 140), "d#"),
-    ((47, 83, 144), "e"),
-    ((44, 100, 134), "f"),
+	((134, 162, 101), "a"),
+	((215, 144, 65), "a#"),
+	((195, 111, 49), "b"),
+	((162, 77, 38), "c"),
+	((176, 28, 70), "c#"),
+	((102, 42, 107), "d"),
+	((31, 60, 140), "d#"),
+	((47, 83, 144), "e"),
+	((44, 100, 134), "f"),
 )
 prevMedianYiq = (0, 0, 0)
 sumDists = 0 #will store the color distance between the images
 tones = [] #will store the resulting music tones
 
-#Calculates the distance between two given colors
 def distance(c1, c2):
-    (r1,g1,b1) = c1
-    (r2,g2,b2) = c2
-    return math.sqrt((r1 - r2)**2 + (g1 - g2)**2 + (b1 - b2)**2)
+	"""Calculates the distance between two given colors"""
+	(r1,g1,b1) = c1
+	(r2,g2,b2) = c2
+	return math.sqrt((r1 - r2)**2 + (g1 - g2)**2 + (b1 - b2)**2)
 	
-#Converts a color to the according music note
 def toNote(color):
+	"""Converts a color to the according music note"""
 	closestMatch = min(yiqToNote, key = lambda c: distance(c[0], color))
 	return closestMatch[1]
 	
-#Converts a brightness value V ranging from 0 to 255 to an octave
 def toOct(V):
+	"""Converts a brightness value V ranging from 0 to 255 to an octave"""
 	return str(V // 37 +1)
-	
-#Gets the median color of an image
+
 def getMedianColor(img):
+	"""Gets the median color of an image"""
 	return tuple(ImageStat.Stat(img).median)
 	
 while True:
